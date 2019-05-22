@@ -1,0 +1,157 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "3.+", changing: true
+    }
+}
+
+apply plugin: "maven"
+apply plugin: "java"
+apply plugin: "net.minecraftforge.gradle"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        name = "forge"
+        url = "http://files.minecraftforge.net/maven"
+    }
+    maven {
+        name "JEI"
+        url "http://dvs1.progwml6.com/files/maven"
+    }
+    maven {
+        name "TAC"
+        url "http://maven.blamejared.com"
+    }
+}
+
+version = "${minecraft_version}-" + getVersion()
+group = "${group}"
+archivesBaseName = "${archive}"
+
+minecraft {
+    mappings channel: "snapshot", version: "${mappings_version}"
+
+    runs {
+        client {
+            workingDirectory project.file("run")
+
+            property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
+            property "forge.logging.console.level", "debug"
+
+            source sourceSets.api
+            source sourceSets.main
+        }
+
+        server {
+            workingDirectory project.file("run")
+
+            property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
+
+            property "forge.logging.console.level", "debug"
+
+            source sourceSets.api
+            source sourceSets.main
+        }
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+}
+
+task srcJar(type: Jar) {
+    from sourceSets.api.allSource
+    from sourceSets.main.allSource
+    classifier = "sources"
+}
+
+task apiJar(type: Jar) {
+    from sourceSets.api.output
+    classifier = "api"
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = "javadoc"
+    from javadoc.destinationDir
+}
+
+sourceSets {
+    api
+    main {
+        compileClasspath += sourceSets.api.output
+        runtimeClasspath += sourceSets.api.output
+    }
+    test {
+        compileClasspath += sourceSets.api.output
+        runtimeClasspath += sourceSets.api.output
+    }
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "${title}",
+                "Specification-Vendor"    : "${team}",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : "${version}",
+                "Implementation-Vendor"   : "${team}",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+    archives apiJar
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file://" + (System.getenv("local_maven") != null ? System.getenv("local_maven") : System.getenv("bamboo_local_maven")))
+        }
+    }
+}
+
+wrapper {
+    distributionType = Wrapper.DistributionType.ALL
+    version = '4.9'
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+String getVersion() {
+    String version = "${base_version}"
+    String branch = project.hasProperty("branch") ? project.branch : ""
+
+    if (branch != "") {
+        version += "-" + branch
+
+        String buildNumber = getBuildNumber()
+        if (buildNumber != "") {
+            version += "." + buildNumber
+        }
+    }
+
+    return version
+}
+
+static String getBuildNumber() {
+    String buildNumber = System.getenv("BUILD_NUMBER") != null ? System.getenv("BUILD_NUMBER") : ""
+    if (buildNumber == "") {
+        buildNumber = System.getenv("bamboo_buildNumber") != null ? System.getenv("bamboo_buildNumber") : ""
+    }
+    return buildNumber
+}
