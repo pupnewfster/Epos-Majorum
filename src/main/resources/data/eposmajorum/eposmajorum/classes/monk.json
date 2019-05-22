@@ -1,0 +1,22 @@
+{
+  "name": {
+    "translate": "eposmajorum.class.monk.name"
+  },
+  "description": {
+    "translate": "eposmajorum.class.monk.description"
+  },
+  "features": {
+    "1": [
+      {
+        "type": "eposmajorum:feat",
+        "feat": "eposmajorum:unarmed_strike"
+      }
+    ],
+    "5": [
+      {
+        "type": "eposmajorum:feat",
+        "feat": "eposmajorum:improved_unarmed_strike"
+      }
+    ]
+  }
+}

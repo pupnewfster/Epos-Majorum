@@ -1,0 +1,12 @@
+modLoader="javafml"
+loaderVersion="[25,)"
+issueTrackerURL="https://github.com/The-Acronym-Coders/Epos-Majorum/issues"
+
+[[mods]]
+    modId="com.teamacronymcoders.eposmajorum"
+    version="${file.jarVersion}"
+    displayName="Epos Majorum"
+    authors="SkySom"
+    description='''
+        Adds Classes, Skills, and Leveling to Minecraft
+    '''
