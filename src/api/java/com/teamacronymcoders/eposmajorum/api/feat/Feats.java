@@ -4,6 +4,8 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Maps;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.eventbus.api.Event;
 
 import javax.annotation.Nonnull;
@@ -12,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Feats {
+public class Feats implements INBTSerializable<NBTTagCompound> {
     private final Map<IFeat, FeatSource> feats;
     private final LoadingCache<Class, List<FeatEventHandler>> featCache;
 
@@ -80,5 +82,16 @@ public class Feats {
 
     public int getUsedPoints() {
         return this.usedPoints;
+    }
+
+    @Override
+    public NBTTagCompound serializeNBT() {
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        return null;
+    }
+
+    @Override
+    public void deserializeNBT(NBTTagCompound nbt) {
+
     }
 }
