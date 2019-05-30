@@ -12,6 +12,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Feats implements INBTSerializable<NBTTagCompound> {
@@ -31,7 +32,7 @@ public class Feats implements INBTSerializable<NBTTagCompound> {
                                 .parallelStream()
                                 .map(IFeat::getEventHandlers)
                                 .flatMap(List::parallelStream)
-                                .filter(featEventHandler -> featEventHandler.eventClass == key)
+                                .filter(checkKey(key))
                                 .collect(Collectors.toList());
                     }
                 });
@@ -93,5 +94,9 @@ public class Feats implements INBTSerializable<NBTTagCompound> {
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
 
+    }
+
+    private static Predicate<FeatEventHandler> checkKey(Class eventClass) {
+        return handler -> handler.getClass().isAssignableFrom(eventClass);
     }
 }

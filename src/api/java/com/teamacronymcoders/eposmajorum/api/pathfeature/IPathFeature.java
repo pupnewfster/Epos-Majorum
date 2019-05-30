@@ -1,8 +1,8 @@
-package com.teamacronymcoders.eposmajorum.api.classfeature;
+package com.teamacronymcoders.eposmajorum.api.pathfeature;
 
 import net.minecraft.entity.EntityLivingBase;
 
-public interface IClassFeature {
+public interface IPathFeature {
     void applyTo(EntityLivingBase entityLivingBase);
 
     void removeFrom(EntityLivingBase entityLivingBase);

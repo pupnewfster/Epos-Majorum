@@ -1,10 +1,11 @@
-package com.teamacronymcoders.eposmajorum.api.clazz;
+package com.teamacronymcoders.eposmajorum.api.path;
 
-import com.teamacronymcoders.eposmajorum.api.classfeature.ClassFeatures;
+import com.teamacronymcoders.eposmajorum.api.pathfeature.PathFeatures;
+import com.teamacronymcoders.eposmajorum.api.registry.IRegistryEntry;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.text.ITextComponent;
 
-public interface IClass {
+public interface IPath extends IRegistryEntry {
 
     /**
      * @return The Name of the Class.
@@ -20,7 +21,7 @@ public interface IClass {
      * @return An Immutable Object Containing All the Feats, Stat Increases, and Other Features
      * that a character will receive as they level up.
      */
-    ClassFeatures getClassFeatures();
+    PathFeatures getPathFeatures();
 
     void addLevel(EntityLivingBase living, int newClassLevel);
 

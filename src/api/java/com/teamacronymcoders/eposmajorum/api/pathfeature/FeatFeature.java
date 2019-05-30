@@ -1,9 +1,9 @@
-package com.teamacronymcoders.eposmajorum.api.classfeature;
+package com.teamacronymcoders.eposmajorum.api.pathfeature;
 
 import com.teamacronymcoders.eposmajorum.api.feat.IFeat;
 import net.minecraft.entity.EntityLivingBase;
 
-public class FeatFeature implements IClassFeature {
+public class FeatFeature implements IPathFeature {
     private final IFeat feat;
 
     public FeatFeature(IFeat feat) {

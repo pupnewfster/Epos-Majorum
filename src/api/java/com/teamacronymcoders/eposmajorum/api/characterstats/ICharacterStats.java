@@ -1,13 +1,13 @@
-package com.teamacronymcoders.eposmajorum.api.character;
+package com.teamacronymcoders.eposmajorum.api.characterstats;
 
-import com.teamacronymcoders.eposmajorum.api.clazz.ClassLevels;
 import com.teamacronymcoders.eposmajorum.api.feat.Feats;
+import com.teamacronymcoders.eposmajorum.api.path.PathLevels;
 import com.teamacronymcoders.eposmajorum.api.skill.Skills;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public interface ICharacterStats extends INBTSerializable<NBTTagCompound> {
-    ClassLevels getClassLevels();
+    PathLevels getPathLevels();
 
     Feats getFeats();
 

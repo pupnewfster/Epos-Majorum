@@ -1,4 +1,6 @@
 package com.teamacronymcoders.eposmajorum.api.skill;
 
-public interface ISkill {
+import com.teamacronymcoders.eposmajorum.api.registry.IRegistryEntry;
+
+public interface ISkill extends IRegistryEntry {
 }

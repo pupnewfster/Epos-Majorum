@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.clazz;
+package com.teamacronymcoders.eposmajorum.path;
 
 import net.minecraft.resources.IResourceManager;
 import net.minecraftforge.resource.IResourceType;
@@ -7,7 +7,7 @@ import net.minecraftforge.resource.ISelectiveResourceReloadListener;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Predicate;
 
-public class ClassRegistry implements ISelectiveResourceReloadListener {
+public class PathRegistry implements ISelectiveResourceReloadListener {
     @Override
     @ParametersAreNonnullByDefault
     public void onResourceManagerReload(IResourceManager resourceManager, Predicate<IResourceType> resourcePredicate) {
@@ -16,6 +16,6 @@ public class ClassRegistry implements ISelectiveResourceReloadListener {
 
     @Override
     public IResourceType getResourceType() {
-        return ClassResourceType.INSTANCE;
+        return PathResourceType.INSTANCE;
     }
 }

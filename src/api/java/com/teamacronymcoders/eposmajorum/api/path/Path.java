@@ -1,18 +1,18 @@
-package com.teamacronymcoders.eposmajorum.api.clazz;
+package com.teamacronymcoders.eposmajorum.api.path;
 
-import com.teamacronymcoders.eposmajorum.api.classfeature.ClassFeatures;
+import com.teamacronymcoders.eposmajorum.api.pathfeature.PathFeatures;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.text.ITextComponent;
 
-public class Class implements IClass {
+public class Path implements IPath {
     private final ITextComponent name;
     private final ITextComponent description;
-    private final ClassFeatures classFeatures;
+    private final PathFeatures pathFeatures;
 
-    public Class(ITextComponent name, ITextComponent description, ClassFeatures classFeatures) {
+    public Path(ITextComponent name, ITextComponent description, PathFeatures pathFeatures) {
         this.name = name;
         this.description = description;
-        this.classFeatures = classFeatures;
+        this.pathFeatures = pathFeatures;
     }
 
     public ITextComponent getName() {
@@ -24,19 +24,19 @@ public class Class implements IClass {
     }
 
     @Override
-    public ClassFeatures getClassFeatures() {
-        return classFeatures;
+    public PathFeatures getPathFeatures() {
+        return pathFeatures;
     }
 
     @Override
     public void addLevel(EntityLivingBase living, int newClassLevel) {
-        this.getClassFeatures().getFeaturesForLevel(newClassLevel)
+        this.getPathFeatures().getFeaturesForLevel(newClassLevel)
                 .forEach(iClassFeature -> iClassFeature.applyTo(living));
     }
 
     @Override
     public void removeLevel(EntityLivingBase living, int newClassLevel) {
-        this.getClassFeatures().getFeaturesForLevel(newClassLevel + 1)
+        this.getPathFeatures().getFeaturesForLevel(newClassLevel + 1)
                 .forEach(iClassFeature -> iClassFeature.removeFrom(living));
     }
 

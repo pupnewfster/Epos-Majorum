@@ -85,7 +85,11 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 sourceSets {
-    api
+    api {
+        java {
+            srcDir 'src/api/java'
+        }
+    }
     main {
         compileClasspath += sourceSets.api.output
         runtimeClasspath += sourceSets.api.output
