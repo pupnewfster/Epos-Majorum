@@ -13,11 +13,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import javax.annotation.Nullable;
 
-import static com.teamacronymcoders.eposmajorum.EposMajorum.ID;
+import static com.teamacronymcoders.eposmajorum.api.EposAPI.ID;
 
 @Mod(value = ID)
 public class EposMajorum {
-    public static final String ID = "eposmajorum";
 
     public EposMajorum() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);

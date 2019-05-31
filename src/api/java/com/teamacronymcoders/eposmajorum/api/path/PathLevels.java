@@ -1,9 +1,7 @@
 package com.teamacronymcoders.eposmajorum.api.path;
 
-import com.teamacronymcoders.eposmajorum.api.EposRegistries;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import it.unimi.dsi.fastutil.objects.ObjectSet;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
