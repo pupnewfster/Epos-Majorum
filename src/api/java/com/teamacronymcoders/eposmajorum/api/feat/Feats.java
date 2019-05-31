@@ -88,7 +88,8 @@ public class Feats implements INBTSerializable<NBTTagCompound> {
     @Override
     public NBTTagCompound serializeNBT() {
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
-        return null;
+        feats.forEach((feat, source) -> nbtTagCompound.putString(feat.getRegistryName().toString(), source.id.toString()));
+        return nbtTagCompound;
     }
 
     @Override
