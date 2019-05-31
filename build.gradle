@@ -15,6 +15,11 @@ buildscript {
 apply plugin: "maven"
 apply plugin: "java"
 apply plugin: "net.minecraftforge.gradle"
+apply plugin: "idea"
+
+version = "${minecraft_version}-" + getVersion()
+group = "${group}"
+archivesBaseName = "${archive}"
 
 repositories {
     mavenLocal()
@@ -24,18 +29,30 @@ repositories {
         url = "http://files.minecraftforge.net/maven"
     }
     maven {
-        name "JEI"
-        url "http://dvs1.progwml6.com/files/maven"
-    }
-    maven {
         name "TAC"
         url "http://maven.blamejared.com"
     }
+    maven {
+        name "JEI"
+        url "http://dvs1.progwml6.com/files/maven"
+    }
 }
 
-version = "${minecraft_version}-" + getVersion()
-group = "${group}"
-archivesBaseName = "${archive}"
+sourceSets {
+    api {
+        java {
+            srcDir 'src/api/java'
+        }
+    }
+    main {
+        compileClasspath += sourceSets.api.output
+        runtimeClasspath += sourceSets.api.output
+    }
+    test {
+        compileClasspath += sourceSets.api.output
+        runtimeClasspath += sourceSets.api.output
+    }
+}
 
 minecraft {
     mappings channel: "snapshot", version: "${mappings_version}"
@@ -84,22 +101,6 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 
-sourceSets {
-    api {
-        java {
-            srcDir 'src/api/java'
-        }
-    }
-    main {
-        compileClasspath += sourceSets.api.output
-        runtimeClasspath += sourceSets.api.output
-    }
-    test {
-        compileClasspath += sourceSets.api.output
-        runtimeClasspath += sourceSets.api.output
-    }
-}
-
 jar {
     manifest {
         attributes([
@@ -116,7 +117,7 @@ jar {
 
 artifacts {
     archives javadocJar
-    archives sourcesJar
+    archives srcJar
     archives apiJar
 }
 
@@ -131,6 +132,12 @@ uploadArchives {
 wrapper {
     distributionType = Wrapper.DistributionType.ALL
     version = '4.9'
+}
+
+idea {
+    module {
+        sourceDirs = sourceDirs + sourceSets.api.allJava.srcDirs
+    }
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
