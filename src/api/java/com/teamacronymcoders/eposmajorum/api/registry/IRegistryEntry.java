@@ -7,4 +7,8 @@ import javax.annotation.Nonnull;
 public interface IRegistryEntry {
     @Nonnull
     ResourceLocation getRegistryName();
+
+    default boolean isFound() {
+        return true;
+    }
 }

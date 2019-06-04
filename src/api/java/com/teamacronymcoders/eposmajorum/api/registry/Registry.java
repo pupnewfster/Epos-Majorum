@@ -3,24 +3,43 @@ package com.teamacronymcoders.eposmajorum.api.registry;
 import com.google.common.collect.Maps;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
 
+@ParametersAreNonnullByDefault
 public class Registry<T extends IRegistryEntry> {
     private final Map<String, T> entries;
+    private final Function<String, T> getDefault;
 
-    public Registry() {
-        entries = Maps.newHashMap();
+    public Registry(Function<String, T> getDefault) {
+        this.getDefault = getDefault;
+        this.entries = Maps.newHashMap();
     }
 
     public void addEntry(T entry) {
         this.entries.put(entry.getRegistryName().toString(), entry);
     }
 
-    public T getEntry(String string) {
-        return entries.get(string);
+    @Nullable
+    public T getEntry(String entryName) {
+        return this.entries.get(entryName);
     }
 
-    public T getEntry(ResourceLocation resourceLocation) {
-        return entries.get(resourceLocation.toString());
+    @Nonnull
+    public T getEntryOrMissing(String entryName) {
+        T entry = this.entries.get(entryName);
+        if (entry == null) {
+            entry = Objects.requireNonNull(this.getDefault.apply(entryName), "Registry ");
+        }
+        return entry;
+    }
+
+    @Nullable
+    public T getEntry(ResourceLocation entryName) {
+        return this.getEntry(entryName.toString());
     }
 }

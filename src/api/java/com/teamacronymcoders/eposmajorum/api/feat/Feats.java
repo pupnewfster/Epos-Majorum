@@ -5,6 +5,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Maps;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -46,7 +47,7 @@ public class Feats implements INBTSerializable<NBTTagCompound> {
     }
 
     public boolean addFeat(@Nonnull IFeat feat, @Nonnull FeatSource featSource) {
-        if (!featSource.countsTowardsPoints || this.usedPoints < this.maxPoints) {
+        if ((!featSource.countsTowardsPoints || this.usedPoints < this.maxPoints)) {
             this.feats.put(feat, featSource);
             for (FeatEventHandler featEventHandler: feat.getEventHandlers()) {
                 featCache.invalidate(featEventHandler.getClass());

@@ -1,6 +1,6 @@
 package com.teamacronymcoders.eposmajorum.eventhandler;
 
-import com.teamacronymcoders.eposmajorum.EposMajorum;
+import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.EposCapabilities;
 import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.eposmajorum.api.event.AltLivingDamageEvent;
@@ -10,7 +10,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-@EventBusSubscriber(modid = EposMajorum.ID)
+@EventBusSubscriber(modid = EposAPI.ID)
 public class DamageEventHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGH)

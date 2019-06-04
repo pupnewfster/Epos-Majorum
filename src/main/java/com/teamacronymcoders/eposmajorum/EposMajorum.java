@@ -1,12 +1,19 @@
 package com.teamacronymcoders.eposmajorum;
 
+import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.characterstats.CharacterStats;
 import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
+import com.teamacronymcoders.eposmajorum.api.feat.IFeat;
+import com.teamacronymcoders.eposmajorum.api.path.IPath;
+import com.teamacronymcoders.eposmajorum.api.registry.RegistryEvent;
+import com.teamacronymcoders.eposmajorum.api.skill.ISkill;
 import net.minecraft.nbt.INBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -37,5 +44,12 @@ public class EposMajorum {
                 }
             }
         }, CharacterStats::new);
+
+        DeferredWorkQueue.runLater(() -> {
+            MinecraftForge.EVENT_BUS.post(new RegistryEvent<>(ISkill.class, EposAPI.SKILL_REGISTRY));
+            MinecraftForge.EVENT_BUS.post(new RegistryEvent<>(IFeat.class, EposAPI.FEAT_REGISTRY));
+            MinecraftForge.EVENT_BUS.post(new RegistryEvent<>(IPath.class, EposAPI.PATH_REGISTRY));
+        });
+
     }
 }

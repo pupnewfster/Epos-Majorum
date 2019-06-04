@@ -1,5 +1,6 @@
 package com.teamacronymcoders.eposmajorum.api.path;
 
+import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.entity.EntityLivingBase;
@@ -53,7 +54,7 @@ public class PathLevels implements INBTSerializable<NBTTagCompound> {
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
         for (String key: nbt.keySet()) {
-            pathLevels.put(Integer.parseInt(key), EposRegistries.PATHS.getEntry(nbt.getString(key)));
+            pathLevels.put(Integer.parseInt(key), EposAPI.PATH_REGISTRY.getEntry(nbt.getString(key)));
         }
     }
 }

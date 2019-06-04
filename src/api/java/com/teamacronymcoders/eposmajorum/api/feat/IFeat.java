@@ -1,9 +1,9 @@
 package com.teamacronymcoders.eposmajorum.api.feat;
 
-import com.teamacronymcoders.eposmajorum.api.registry.IRegistryEntry;
+import com.teamacronymcoders.eposmajorum.api.registry.INamedRegistryEntry;
 
 import java.util.List;
 
-public interface IFeat extends IRegistryEntry {
+public interface IFeat extends INamedRegistryEntry {
     List<FeatEventHandler> getEventHandlers();
 }

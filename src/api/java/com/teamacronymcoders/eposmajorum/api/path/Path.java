@@ -2,14 +2,20 @@ package com.teamacronymcoders.eposmajorum.api.path;
 
 import com.teamacronymcoders.eposmajorum.api.pathfeature.PathFeatures;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
+import javax.annotation.Nonnull;
+
 public class Path implements IPath {
+    private final ResourceLocation registryName;
     private final ITextComponent name;
     private final ITextComponent description;
     private final PathFeatures pathFeatures;
 
-    public Path(ITextComponent name, ITextComponent description, PathFeatures pathFeatures) {
+    public Path(ResourceLocation registryName, ITextComponent name, ITextComponent description,
+                PathFeatures pathFeatures) {
+        this.registryName = registryName;
         this.name = name;
         this.description = description;
         this.pathFeatures = pathFeatures;
@@ -41,4 +47,9 @@ public class Path implements IPath {
     }
 
 
+    @Nonnull
+    @Override
+    public ResourceLocation getRegistryName() {
+        return registryName;
+    }
 }
