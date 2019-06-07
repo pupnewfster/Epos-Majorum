@@ -5,7 +5,7 @@ import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.IFeat;
 import com.teamacronymcoders.eposmajorum.api.path.IPath;
 import com.teamacronymcoders.eposmajorum.api.registry.RegistryEvent;
-import com.teamacronymcoders.eposmajorum.feat.UnarmedStrikeFeat;
+import com.teamacronymcoders.eposmajorum.content.UnarmedStrike;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
@@ -14,12 +14,7 @@ public class RegistrationEventHandler {
     @SubscribeEvent
     public static void registerFeats(RegistryEvent<IFeat> featRegistryEvent) {
         featRegistryEvent.register(Lists.newArrayList(
-                new UnarmedStrikeFeat()
+                UnarmedStrike.FEAT
         ));
-    }
-
-    @SubscribeEvent
-    public static void registerPaths(RegistryEvent<IPath> pathRegistryEvent) {
-
     }
 }

@@ -33,7 +33,8 @@ public class Registry<T extends IRegistryEntry> {
     public T getEntryOrMissing(String entryName) {
         T entry = this.entries.get(entryName);
         if (entry == null) {
-            entry = Objects.requireNonNull(this.getDefault.apply(entryName), "Registry ");
+            entry = Objects.requireNonNull(this.getDefault.apply(entryName),
+                    "Registry was unable to create missing value for entry:" + entryName);
         }
         return entry;
     }
@@ -41,5 +42,9 @@ public class Registry<T extends IRegistryEntry> {
     @Nullable
     public T getEntry(ResourceLocation entryName) {
         return this.getEntry(entryName.toString());
+    }
+
+    public void clear() {
+        this.entries.clear();
     }
 }

@@ -4,6 +4,6 @@ import com.teamacronymcoders.eposmajorum.api.registry.INamedRegistryEntry;
 
 import java.util.List;
 
-public interface IFeat extends INamedRegistryEntry {
-    List<FeatEventHandler> getEventHandlers();
+public interface IFeat extends INamedRegistryEntry<IFeat> {
+    List<FeatEventHandler<?>> getEventHandlers();
 }

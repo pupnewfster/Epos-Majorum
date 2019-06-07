@@ -11,5 +11,9 @@
   "skill.eposmajorum.missing.name": "Missing Skill",
   "skill.eposmajorum.missing.description": "The Skill for registry name %s is missing",
 
+  "pathfeature.eposmajorum.missing.name": "Missing Path Provider",
+  "pathfeature.eposmajorum.missing.description": "The Path Provider for registry name %s is missing",
+
+  "pathfeature.eposmajorum.feat.name": "Grants Feat %s",
   "pathfeature.eposmajorum.feat.description": "Grants Feat: %s"
 }

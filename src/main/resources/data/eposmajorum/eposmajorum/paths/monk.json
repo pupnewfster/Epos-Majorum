@@ -5,6 +5,7 @@
   "description": {
     "translate": "path.eposmajorum.monk.description"
   },
+  "maxLevel": 20,
   "features": {
     "1": [
       {
@@ -14,14 +15,16 @@
     ],
     "5": [
       {
-        "type": "eposmajorum:feat",
-        "feat": "eposmajorum:unarmed_strike.improved"
+        "type": "eposmajorum:skill_xp",
+        "skill": "eposmajorum:unarmed_strike",
+        "amount": "1000"
       }
     ],
     "10": [
       {
-        "type": "eposmajorum:feat",
-        "feat": "eposmajorum:unarmed_strike.greater"
+        "type": "eposmajorum:skill_xp",
+        "skill": "eposmajorum:unarmed_strike",
+        "amount": "1000"
       }
     ]
   }

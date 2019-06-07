@@ -41,4 +41,19 @@ public class MissingSkill implements ISkill {
     public int compareTo(ISkill o) {
         return String.CASE_INSENSITIVE_ORDER.compare(this.getName().getString(), o.getName().getString());
     }
+
+    @Override
+    public SkillInfo createSkillInfo() {
+        return new SkillInfo(this);
+    }
+
+    @Override
+    public boolean isHidden() {
+        return true;
+    }
+
+    @Override
+    public int getMaxLevel() {
+        return 0;
+    }
 }

@@ -2,17 +2,18 @@ package com.teamacronymcoders.eposmajorum.api.path;
 
 import com.teamacronymcoders.eposmajorum.api.pathfeature.PathFeatures;
 import com.teamacronymcoders.eposmajorum.api.registry.MissingRegistryEntry;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
 public class MissingPath extends MissingRegistryEntry<IPath> implements IPath {
-    public MissingPath(ResourceLocation registryName) {
-        super(registryName, "path");
+    public MissingPath(String registryName) {
+        super(new ResourceLocation(registryName), "path");
     }
 
     @Override
     public PathFeatures getPathFeatures() {
-        return new PathFeatures();
+        return new PathFeatures(0, new Int2ObjectOpenHashMap<>());
     }
 
     @Override

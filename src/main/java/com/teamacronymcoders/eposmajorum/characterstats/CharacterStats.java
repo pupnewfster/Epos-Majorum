@@ -1,5 +1,6 @@
-package com.teamacronymcoders.eposmajorum.api.characterstats;
+package com.teamacronymcoders.eposmajorum.characterstats;
 
+import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.eposmajorum.api.feat.Feats;
 import com.teamacronymcoders.eposmajorum.api.path.PathLevels;
 import com.teamacronymcoders.eposmajorum.api.skill.Skills;

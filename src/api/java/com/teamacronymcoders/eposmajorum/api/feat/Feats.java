@@ -4,8 +4,9 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Maps;
+import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -69,9 +70,9 @@ public class Feats implements INBTSerializable<NBTTagCompound> {
 
     //This will be a mess regardless
     @SuppressWarnings("unchecked")
-    public <T extends Event> void handleEvent(T event) {
+    public <T extends Event> void handleEvent(T event, EntityLivingBase character, ICharacterStats characterStats) {
         featCache.getUnchecked(event.getClass())
-                .forEach(list -> list.eventHandler.accept(event));
+                .forEach(list -> list.eventHandler.accept(event, character, characterStats));
     }
 
     public int getAvailablePoints() {

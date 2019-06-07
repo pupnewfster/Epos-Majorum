@@ -2,6 +2,7 @@ package com.teamacronymcoders.eposmajorum.api.skill;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -24,7 +25,7 @@ public class Skills implements INBTSerializable<NBTTagCompound> {
 
     @Nonnull
     public SkillInfo getOrCreate(String name) {
-        SkillInfo skillInfo = this.skillInfoMap.get(name);
+        SkillInfo skillInfo = this.get(name);
         if (skillInfo == null) {
             skillInfo = new SkillInfo(EposAPI.SKILL_REGISTRY.getEntryOrMissing(name));
             this.putSkillInfo(skillInfo);
@@ -32,12 +33,16 @@ public class Skills implements INBTSerializable<NBTTagCompound> {
         return skillInfo;
     }
 
+    public void putSkill(ResourceLocation registryName) {
+        this.putSkillInfo(this.getOrCreate(registryName.toString()));
+    }
+
     public void putSkill(ISkill skill) {
         this.putSkillInfo(skill.createSkillInfo());
     }
 
     public void putSkillInfo(SkillInfo skillInfo) {
-        this.skillInfoMap.put(skillInfo.getRegistryName(), skillInfo);
+        this.skillInfoMap.putIfAbsent(skillInfo.getRegistryName(), skillInfo);
     }
 
     @Override

@@ -15,7 +15,7 @@ public class PathLevels implements INBTSerializable<NBTTagCompound> {
         pathLevels = new Int2ObjectOpenHashMap<>();
     }
 
-    public boolean addPathLevel(EntityLivingBase entityLivingBase, IPath iPath) {
+    public boolean levelUp(EntityLivingBase entityLivingBase, IPath iPath) {
         boolean addedPath = false;
         int currentCheck = 0;
         do {

@@ -1,5 +1,6 @@
-package com.teamacronymcoders.eposmajorum.api.path;
+package com.teamacronymcoders.eposmajorum.path;
 
+import com.teamacronymcoders.eposmajorum.api.path.IPath;
 import com.teamacronymcoders.eposmajorum.api.pathfeature.PathFeatures;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;

@@ -7,8 +7,8 @@ import net.minecraftforge.common.util.INBTSerializable;
 import javax.annotation.Nonnull;
 
 public class SkillInfo implements INBTSerializable<NBTTagCompound>, Comparable<SkillInfo> {
-    private String registryName;
-    private ISkill skill;
+    private final String registryName;
+    private final ISkill skill;
     private int experience;
     private int level;
     private boolean active;
@@ -35,7 +35,7 @@ public class SkillInfo implements INBTSerializable<NBTTagCompound>, Comparable<S
     }
 
     public int getLevel() {
-        return level;
+        return this.isActive() ? level : 0;
     }
 
     public void setLevel(int level) {
@@ -53,19 +53,17 @@ public class SkillInfo implements INBTSerializable<NBTTagCompound>, Comparable<S
     @Override
     public NBTTagCompound serializeNBT() {
         NBTTagCompound nbt = new NBTTagCompound();
-        nbt.putInt("experience", this.experience);
-        nbt.putInt("level", this.level);
-        nbt.putBoolean("active", this.active);
+        nbt.putInt("experience", this.getExperience());
+        nbt.putInt("level", this.getLevel());
+        nbt.putBoolean("active", this.isActive());
         return nbt;
     }
 
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
-        this.skill = EposAPI.SKILL_REGISTRY.getEntry(nbt.getString("skill"));
-        this.registryName = skill.getRegistryName().toString();
-        this.experience = nbt.getInt("experience");
-        this.level = nbt.getInt("level");
-        this.active = nbt.getBoolean("active") && this.skill.isFound();
+        this.setExperience(nbt.getInt("experience"));
+        this.setLevel(nbt.getInt("level"));
+        this.setActive(nbt.getBoolean("active") && this.skill.isFound());
     }
 
     @Override
