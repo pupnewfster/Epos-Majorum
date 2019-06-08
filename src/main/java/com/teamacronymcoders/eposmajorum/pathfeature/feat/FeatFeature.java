@@ -5,12 +5,10 @@ import com.teamacronymcoders.eposmajorum.api.EposCapabilities;
 import com.teamacronymcoders.eposmajorum.api.feat.FeatSource;
 import com.teamacronymcoders.eposmajorum.api.feat.IFeat;
 import com.teamacronymcoders.eposmajorum.api.pathfeature.IPathFeature;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
-
-import javax.annotation.Nonnull;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class FeatFeature implements IPathFeature {
     public static final FeatSource FEATURE_SOURCE =
@@ -22,8 +20,8 @@ public class FeatFeature implements IPathFeature {
 
     public FeatFeature(IFeat feat) {
         this.feat = feat;
-        this.name = new TextComponentTranslation("pathfeature.eposmajorum.feat.name", feat.getName());
-        this.description = new TextComponentTranslation("pathfeature.eposmajorum.feat.description", feat.getName());
+        this.name = new TranslationTextComponent("pathfeature.eposmajorum.feat.name", feat.getName());
+        this.description = new TranslationTextComponent("pathfeature.eposmajorum.feat.description", feat.getName());
     }
 
     @Override
@@ -37,16 +35,16 @@ public class FeatFeature implements IPathFeature {
     }
 
     @Override
-    public void applyTo(EntityLivingBase entityLivingBase) {
-        entityLivingBase.getCapability(EposCapabilities.CHARACTER_STATS)
+    public void applyTo(LivingEntity character) {
+        character.getCapability(EposCapabilities.CHARACTER_STATS)
                 .ifPresent(iCharacterStats -> iCharacterStats
                         .getFeats()
                         .addFeat(feat, FEATURE_SOURCE));
     }
 
     @Override
-    public void removeFrom(EntityLivingBase entityLivingBase) {
-        entityLivingBase.getCapability(EposCapabilities.CHARACTER_STATS)
+    public void removeFrom(LivingEntity character) {
+        character.getCapability(EposCapabilities.CHARACTER_STATS)
                 .ifPresent(iCharacterStats -> iCharacterStats
                         .getFeats()
                         .removeFeat(feat));

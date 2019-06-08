@@ -3,19 +3,19 @@ package com.teamacronymcoders.eposmajorum.api.path;
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
-public class PathLevels implements INBTSerializable<NBTTagCompound> {
-    private int currentLevel;
+public class PathLevels implements INBTSerializable<CompoundNBT> {
     private final Int2ObjectMap<IPath> pathLevels;
+    private int currentLevel;
 
     public PathLevels() {
         pathLevels = new Int2ObjectOpenHashMap<>();
     }
 
-    public boolean levelUp(EntityLivingBase entityLivingBase, IPath iPath) {
+    public boolean levelUp(LivingEntity entityLivingBase, IPath iPath) {
         boolean addedPath = false;
         int currentCheck = 0;
         do {
@@ -28,7 +28,7 @@ public class PathLevels implements INBTSerializable<NBTTagCompound> {
 
         int newClassTotal = 0;
         if (addedPath) {
-            for (Int2ObjectMap.Entry<IPath> entry: pathLevels.int2ObjectEntrySet()) {
+            for (Int2ObjectMap.Entry<IPath> entry : pathLevels.int2ObjectEntrySet()) {
                 if (entry.getValue() == iPath) {
                     newClassTotal++;
                 }
@@ -43,8 +43,8 @@ public class PathLevels implements INBTSerializable<NBTTagCompound> {
     }
 
     @Override
-    public NBTTagCompound serializeNBT() {
-        NBTTagCompound nbt = new NBTTagCompound();
+    public CompoundNBT serializeNBT() {
+        CompoundNBT nbt = new CompoundNBT();
         for (Int2ObjectMap.Entry<IPath> entry : pathLevels.int2ObjectEntrySet()) {
             nbt.putString(Integer.toString(entry.getIntKey()), entry.getValue().getRegistryName().toString());
         }
@@ -52,8 +52,8 @@ public class PathLevels implements INBTSerializable<NBTTagCompound> {
     }
 
     @Override
-    public void deserializeNBT(NBTTagCompound nbt) {
-        for (String key: nbt.keySet()) {
+    public void deserializeNBT(CompoundNBT nbt) {
+        for (String key : nbt.keySet()) {
             pathLevels.put(Integer.parseInt(key), EposAPI.PATH_REGISTRY.getEntry(nbt.getString(key)));
         }
     }

@@ -2,10 +2,10 @@ package com.teamacronymcoders.eposmajorum.api.feat;
 
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.eventbus.api.Event;
 import org.apache.logging.log4j.util.TriConsumer;
 
@@ -33,6 +33,11 @@ public class FeatBuilder {
                 nameToComponent(registryName, "description"), Lists.newArrayList());
     }
 
+    private static ITextComponent nameToComponent(ResourceLocation registryName, String append) {
+        return new TranslationTextComponent("feat." + registryName.getNamespace() +
+                "." + registryName.getPath() + "." + append);
+    }
+
     public FeatBuilder withName(ITextComponent newName) {
         return new FeatBuilder(registryName, newName, description, eventHandlers);
     }
@@ -42,17 +47,12 @@ public class FeatBuilder {
     }
 
     public <T extends Event> FeatBuilder withEventHandler(Class<T> eventClass,
-                                                          TriConsumer<T, EntityLivingBase, ICharacterStats> eventHandler) {
+                                                          TriConsumer<T, LivingEntity, ICharacterStats> eventHandler) {
         eventHandlers.add(new FeatEventHandler<>(registryName, eventClass, eventHandler));
         return new FeatBuilder(registryName, name, description, eventHandlers);
     }
 
     public Feat finish() {
         return new Feat(registryName, name, description, eventHandlers);
-    }
-
-    private static ITextComponent nameToComponent(ResourceLocation registryName, String append) {
-        return new TextComponentTranslation("feat." + registryName.getNamespace() +
-                "." + registryName.getPath() + "." + append);
     }
 }

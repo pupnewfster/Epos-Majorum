@@ -5,8 +5,8 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Maps;
 import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Feats implements INBTSerializable<NBTTagCompound> {
+public class Feats implements INBTSerializable<CompoundNBT> {
     private final Map<IFeat, FeatSource> feats;
     private final LoadingCache<Class, List<FeatEventHandler>> featCache;
 
@@ -43,6 +43,10 @@ public class Feats implements INBTSerializable<NBTTagCompound> {
         this.usedPoints = 0;
     }
 
+    private static Predicate<FeatEventHandler> checkKey(Class eventClass) {
+        return handler -> handler.getClass().isAssignableFrom(eventClass);
+    }
+
     public Set<IFeat> getAll() {
         return this.feats.keySet();
     }
@@ -50,7 +54,7 @@ public class Feats implements INBTSerializable<NBTTagCompound> {
     public boolean addFeat(@Nonnull IFeat feat, @Nonnull FeatSource featSource) {
         if ((!featSource.countsTowardsPoints || this.usedPoints < this.maxPoints)) {
             this.feats.put(feat, featSource);
-            for (FeatEventHandler featEventHandler: feat.getEventHandlers()) {
+            for (FeatEventHandler featEventHandler : feat.getEventHandlers()) {
                 featCache.invalidate(featEventHandler.getClass());
             }
             return true;
@@ -63,14 +67,14 @@ public class Feats implements INBTSerializable<NBTTagCompound> {
         if (featSource != null && featSource.countsTowardsPoints) {
             this.usedPoints--;
         }
-        for (FeatEventHandler featEventHandler: feat.getEventHandlers()) {
+        for (FeatEventHandler featEventHandler : feat.getEventHandlers()) {
             featCache.invalidate(featEventHandler.getClass());
         }
     }
 
     //This will be a mess regardless
     @SuppressWarnings("unchecked")
-    public <T extends Event> void handleEvent(T event, EntityLivingBase character, ICharacterStats characterStats) {
+    public <T extends Event> void handleEvent(T event, LivingEntity character, ICharacterStats characterStats) {
         featCache.getUnchecked(event.getClass())
                 .forEach(list -> list.eventHandler.accept(event, character, characterStats));
     }
@@ -88,18 +92,14 @@ public class Feats implements INBTSerializable<NBTTagCompound> {
     }
 
     @Override
-    public NBTTagCompound serializeNBT() {
-        NBTTagCompound nbtTagCompound = new NBTTagCompound();
-        feats.forEach((feat, source) -> nbtTagCompound.putString(feat.getRegistryName().toString(), source.id.toString()));
-        return nbtTagCompound;
+    public CompoundNBT serializeNBT() {
+        CompoundNBT CompoundNBT = new CompoundNBT();
+        feats.forEach((feat, source) -> CompoundNBT.putString(feat.getRegistryName().toString(), source.id.toString()));
+        return CompoundNBT;
     }
 
     @Override
-    public void deserializeNBT(NBTTagCompound nbt) {
+    public void deserializeNBT(CompoundNBT nbt) {
 
-    }
-
-    private static Predicate<FeatEventHandler> checkKey(Class eventClass) {
-        return handler -> handler.getClass().isAssignableFrom(eventClass);
     }
 }

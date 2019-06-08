@@ -1,6 +1,6 @@
 package com.teamacronymcoders.eposmajorum.api.pathfeature;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.ITextComponent;
 
 public interface IPathFeature {
@@ -14,7 +14,7 @@ public interface IPathFeature {
      */
     ITextComponent getDescription();
 
-    void applyTo(EntityLivingBase entityLivingBase);
+    void applyTo(LivingEntity character);
 
-    void removeFrom(EntityLivingBase entityLivingBase);
+    void removeFrom(LivingEntity character);
 }

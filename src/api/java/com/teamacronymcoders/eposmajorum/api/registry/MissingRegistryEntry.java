@@ -2,7 +2,7 @@ package com.teamacronymcoders.eposmajorum.api.registry;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nonnull;
 
@@ -13,8 +13,8 @@ public class MissingRegistryEntry<T extends INamedRegistryEntry<T>> implements I
 
     public MissingRegistryEntry(ResourceLocation registryName, String type) {
         this.registryName = registryName;
-        this.name = new TextComponentTranslation(type + ".eposmajorum.missing.name");
-        this.description = new TextComponentTranslation(type + "eposmajorum.missing.description");
+        this.name = new TranslationTextComponent(type + ".eposmajorum.missing.name");
+        this.description = new TranslationTextComponent(type + "eposmajorum.missing.description");
     }
 
     @Override

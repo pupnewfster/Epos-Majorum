@@ -2,7 +2,7 @@ package com.teamacronymcoders.eposmajorum.path;
 
 import com.teamacronymcoders.eposmajorum.api.path.IPath;
 import com.teamacronymcoders.eposmajorum.api.pathfeature.PathFeatures;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
@@ -36,15 +36,15 @@ public class Path implements IPath {
     }
 
     @Override
-    public void addLevel(EntityLivingBase living, int newClassLevel) {
+    public void addLevel(LivingEntity character, int newClassLevel) {
         this.getPathFeatures().getFeaturesForLevel(newClassLevel)
-                .forEach(iClassFeature -> iClassFeature.applyTo(living));
+                .forEach(iClassFeature -> iClassFeature.applyTo(character));
     }
 
     @Override
-    public void removeLevel(EntityLivingBase living, int newClassLevel) {
-        this.getPathFeatures().getFeaturesForLevel(newClassLevel + 1)
-                .forEach(iClassFeature -> iClassFeature.removeFrom(living));
+    public void removeLevel(LivingEntity character, int newPathLevel) {
+        this.getPathFeatures().getFeaturesForLevel(newPathLevel + 1)
+                .forEach(iClassFeature -> iClassFeature.removeFrom(character));
     }
 
 

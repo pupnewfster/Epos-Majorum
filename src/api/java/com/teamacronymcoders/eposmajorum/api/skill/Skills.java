@@ -1,7 +1,7 @@
 package com.teamacronymcoders.eposmajorum.api.skill;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
 import org.apache.commons.lang3.tuple.Pair;
@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Skills implements INBTSerializable<NBTTagCompound> {
+public class Skills implements INBTSerializable<CompoundNBT> {
     private final Map<String, SkillInfo> skillInfoMap;
 
     public Skills() {
@@ -46,14 +46,14 @@ public class Skills implements INBTSerializable<NBTTagCompound> {
     }
 
     @Override
-    public NBTTagCompound serializeNBT() {
-        NBTTagCompound nbt = new NBTTagCompound();
+    public CompoundNBT serializeNBT() {
+        CompoundNBT nbt = new CompoundNBT();
         this.skillInfoMap.values().forEach(skillInfo -> nbt.put(skillInfo.getRegistryName(), skillInfo.serializeNBT()));
         return nbt;
     }
 
     @Override
-    public void deserializeNBT(NBTTagCompound nbt) {
+    public void deserializeNBT(CompoundNBT nbt) {
         this.skillInfoMap.clear();
         nbt.keySet().stream()
                 .map(key -> Pair.of(key, nbt.getCompound(key)))

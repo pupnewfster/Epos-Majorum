@@ -1,12 +1,11 @@
 package com.teamacronymcoders.eposmajorum.api.skill;
 
-import com.teamacronymcoders.eposmajorum.api.EposAPI;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import javax.annotation.Nonnull;
 
-public class SkillInfo implements INBTSerializable<NBTTagCompound>, Comparable<SkillInfo> {
+public class SkillInfo implements INBTSerializable<CompoundNBT>, Comparable<SkillInfo> {
     private final String registryName;
     private final ISkill skill;
     private int experience;
@@ -51,8 +50,8 @@ public class SkillInfo implements INBTSerializable<NBTTagCompound>, Comparable<S
     }
 
     @Override
-    public NBTTagCompound serializeNBT() {
-        NBTTagCompound nbt = new NBTTagCompound();
+    public CompoundNBT serializeNBT() {
+        CompoundNBT nbt = new CompoundNBT();
         nbt.putInt("experience", this.getExperience());
         nbt.putInt("level", this.getLevel());
         nbt.putBoolean("active", this.isActive());
@@ -60,7 +59,7 @@ public class SkillInfo implements INBTSerializable<NBTTagCompound>, Comparable<S
     }
 
     @Override
-    public void deserializeNBT(NBTTagCompound nbt) {
+    public void deserializeNBT(CompoundNBT nbt) {
         this.setExperience(nbt.getInt("experience"));
         this.setLevel(nbt.getInt("level"));
         this.setActive(nbt.getBoolean("active") && this.skill.isFound());

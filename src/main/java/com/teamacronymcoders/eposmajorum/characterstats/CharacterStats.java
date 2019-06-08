@@ -4,7 +4,8 @@ import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.eposmajorum.api.feat.Feats;
 import com.teamacronymcoders.eposmajorum.api.path.PathLevels;
 import com.teamacronymcoders.eposmajorum.api.skill.Skills;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 
 public class CharacterStats implements ICharacterStats {
     private final PathLevels pathLevels;
@@ -37,16 +38,16 @@ public class CharacterStats implements ICharacterStats {
     }
 
     @Override
-    public NBTTagCompound serializeNBT() {
-        NBTTagCompound nbtTagCompound = new NBTTagCompound();
-        nbtTagCompound.put("path_levels", this.getPathLevels().serializeNBT());
-        nbtTagCompound.put("feats", this.getFeats().serializeNBT());
-        nbtTagCompound.put("skills", this.getSkills().serializeNBT());
-        return nbtTagCompound;
+    public CompoundNBT serializeNBT() {
+        CompoundNBT CompoundNBT = new CompoundNBT();
+        CompoundNBT.put("path_levels", this.getPathLevels().serializeNBT());
+        CompoundNBT.put("feats", this.getFeats().serializeNBT());
+        CompoundNBT.put("skills", this.getSkills().serializeNBT());
+        return CompoundNBT;
     }
 
     @Override
-    public void deserializeNBT(NBTTagCompound nbt) {
+    public void deserializeNBT(CompoundNBT nbt) {
         this.getPathLevels().deserializeNBT(nbt.getCompound("path_levels"));
         this.getFeats().deserializeNBT(nbt.getCompound("feats"));
         this.getSkills().deserializeNBT(nbt.getCompound("skills"));
