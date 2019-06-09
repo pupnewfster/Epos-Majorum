@@ -1,5 +1,6 @@
 package com.teamacronymcoders.eposmajorum.api.path;
 
+import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.eposmajorum.api.pathfeature.PathFeatures;
 import com.teamacronymcoders.eposmajorum.api.registry.INamedRegistryEntry;
 import net.minecraft.entity.LivingEntity;
@@ -11,7 +12,7 @@ public interface IPath extends INamedRegistryEntry<IPath> {
      */
     PathFeatures getPathFeatures();
 
-    void addLevel(LivingEntity character, int newClassLevel);
+    void addLevel(LivingEntity character, ICharacterStats characterStats, int newClassLevel);
 
-    void removeLevel(LivingEntity character, int newPathLevel);
+    void removeLevel(LivingEntity character, ICharacterStats characterStats, int newPathLevel);
 }

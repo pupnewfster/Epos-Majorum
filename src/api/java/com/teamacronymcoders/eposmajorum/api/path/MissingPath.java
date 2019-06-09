@@ -1,5 +1,6 @@
 package com.teamacronymcoders.eposmajorum.api.path;
 
+import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.eposmajorum.api.pathfeature.PathFeatures;
 import com.teamacronymcoders.eposmajorum.api.registry.MissingRegistryEntry;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -17,12 +18,12 @@ public class MissingPath extends MissingRegistryEntry<IPath> implements IPath {
     }
 
     @Override
-    public void addLevel(LivingEntity character, int newClassLevel) {
+    public void addLevel(LivingEntity character, ICharacterStats characterStats, int newClassLevel) {
 
     }
 
     @Override
-    public void removeLevel(LivingEntity character, int newPathLevel) {
+    public void removeLevel(LivingEntity character, ICharacterStats characterStats, int newPathLevel) {
 
     }
 }

@@ -1,6 +1,7 @@
 package com.teamacronymcoders.eposmajorum.api.path;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
+import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.entity.LivingEntity;
@@ -15,7 +16,7 @@ public class PathLevels implements INBTSerializable<CompoundNBT> {
         pathLevels = new Int2ObjectOpenHashMap<>();
     }
 
-    public boolean levelUp(LivingEntity entityLivingBase, IPath iPath) {
+    public boolean levelUp(LivingEntity character, ICharacterStats characterStats, IPath iPath) {
         boolean addedPath = false;
         int currentCheck = 0;
         do {
@@ -34,7 +35,7 @@ public class PathLevels implements INBTSerializable<CompoundNBT> {
                 }
             }
         }
-        iPath.addLevel(entityLivingBase, newClassTotal);
+        iPath.addLevel(character, characterStats, newClassTotal);
         return addedPath;
     }
 

@@ -2,6 +2,7 @@ package com.teamacronymcoders.eposmajorum.pathfeature.feat;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.EposCapabilities;
+import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.eposmajorum.api.feat.FeatSource;
 import com.teamacronymcoders.eposmajorum.api.feat.IFeat;
 import com.teamacronymcoders.eposmajorum.api.pathfeature.IPathFeature;
@@ -35,7 +36,7 @@ public class FeatFeature implements IPathFeature {
     }
 
     @Override
-    public void applyTo(LivingEntity character) {
+    public void applyTo(LivingEntity character, ICharacterStats characterStats) {
         character.getCapability(EposCapabilities.CHARACTER_STATS)
                 .ifPresent(iCharacterStats -> iCharacterStats
                         .getFeats()
@@ -43,7 +44,7 @@ public class FeatFeature implements IPathFeature {
     }
 
     @Override
-    public void removeFrom(LivingEntity character) {
+    public void removeFrom(LivingEntity character, ICharacterStats characterStats) {
         character.getCapability(EposCapabilities.CHARACTER_STATS)
                 .ifPresent(iCharacterStats -> iCharacterStats
                         .getFeats()
