@@ -30,7 +30,11 @@ public class SkillInfo implements INBTSerializable<CompoundNBT>, Comparable<Skil
     }
 
     public void setExperience(int experience) {
-        this.experience = experience;
+        if (this.experience >= 0) {
+            this.experience = experience;
+        } else {
+            this.experience = 0;
+        }
     }
 
     public int getLevel() {
@@ -68,5 +72,9 @@ public class SkillInfo implements INBTSerializable<CompoundNBT>, Comparable<Skil
     @Override
     public int compareTo(@Nonnull SkillInfo o) {
         return this.getSkill().compareTo(o.getSkill());
+    }
+
+    public void addExperience(int xpAmount) {
+        this.setExperience(this.getExperience() + xpAmount);
     }
 }

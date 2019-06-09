@@ -26,7 +26,7 @@ public class MissingPathFeatureProvider implements IPathFeatureProvider {
     }
 
     @Override
-    public IPathFeature provide(JsonObject jsonElement, JsonDeserializationContext jsonDeserializationContext)
+    public IPathFeature provide(JsonObject jsonObject, JsonDeserializationContext jsonDeserializationContext)
             throws JsonParseException {
         throw new JsonParseException("Missing Provider: " + registryName);
     }

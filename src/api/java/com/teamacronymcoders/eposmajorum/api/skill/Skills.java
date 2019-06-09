@@ -23,6 +23,16 @@ public class Skills implements INBTSerializable<CompoundNBT> {
         return this.skillInfoMap.get(name);
     }
 
+    @Nullable
+    public SkillInfo get(ISkill skill) {
+        return this.get(skill.getRegistryName().toString());
+    }
+
+    @Nonnull
+    public SkillInfo getOrCreate(ISkill skill) {
+        return this.getOrCreate(skill.getRegistryName().toString());
+    }
+
     @Nonnull
     public SkillInfo getOrCreate(String name) {
         SkillInfo skillInfo = this.get(name);
