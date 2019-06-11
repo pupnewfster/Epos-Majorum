@@ -6,6 +6,7 @@ import com.teamacronymcoders.eposmajorum.api.feat.IFeat;
 import com.teamacronymcoders.eposmajorum.api.path.IPath;
 import com.teamacronymcoders.eposmajorum.api.pathfeature.IPathFeatureProvider;
 import com.teamacronymcoders.eposmajorum.api.registry.RegistryEvent;
+import com.teamacronymcoders.eposmajorum.content.SpiritOfBattle;
 import com.teamacronymcoders.eposmajorum.content.UnarmedStrike;
 import com.teamacronymcoders.eposmajorum.pathfeature.feat.FeatFeatureProvider;
 import com.teamacronymcoders.eposmajorum.pathfeature.skillxp.SkillXPFeatureProvider;
@@ -17,7 +18,8 @@ public class RegistrationEventHandler {
     @SubscribeEvent
     public static void registerFeats(RegistryEvent<IFeat> featRegistryEvent) {
         featRegistryEvent.register(Lists.newArrayList(
-                UnarmedStrike.FEAT
+                UnarmedStrike.FEAT,
+                SpiritOfBattle.FEAT
         ));
     }
 
