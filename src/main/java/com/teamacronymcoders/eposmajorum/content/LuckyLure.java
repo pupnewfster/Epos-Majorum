@@ -18,12 +18,5 @@ public class LuckyLure {
                     if (event.player.fishingBobber != null) {
                         event.player.addPotionEffect(new EffectInstance(Effects.LUCK, 10, 0, true, true));
                     }
-                }))
-                    .withEventHandler(FeatAcquiredEvent.class,
-                            ((featAcquiredEvent, character, characterStats) -> {
-                                if (featAcquiredEvent.getFeatAcquired().getRegistryName()
-                                        .compareTo(NAME) == 0) {
-                                    characterStats.getSkills().putSkill(NAME);
-                                }
-                            })).finish();
+                })).finish();
 }

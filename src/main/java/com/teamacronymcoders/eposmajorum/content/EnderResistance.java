@@ -15,12 +15,5 @@ public class EnderResistance {
                     if (!enderTeleportEvent.isCanceled()) {
                         enderTeleportEvent.setAttackDamage(0);
                     }
-                })
-                    .withEventHandler(FeatAcquiredEvent.class,
-                            (featAcquiredEvent, character, characterStats) -> {
-                                if (featAcquiredEvent.getFeatAcquired().getRegistryName()
-                                        .compareTo(NAME) == 0) {
-                                    characterStats.getSkills().putSkill(NAME);
-                                }
-                            }).finish();
+                }).finish();
 }

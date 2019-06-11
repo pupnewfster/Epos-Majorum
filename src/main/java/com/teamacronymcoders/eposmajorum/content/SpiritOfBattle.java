@@ -20,12 +20,5 @@ public class SpiritOfBattle {
                             if (!livingDeathEvent.isCanceled() && livingDeathEvent.getEntity() instanceof IMob && livingDeathEvent.getSource().getTrueSource() instanceof PlayerEntity) {
                                 ((PlayerEntity) livingDeathEvent.getSource().getTrueSource()).addPotionEffect(new EffectInstance(Effects.STRENGTH, 120, 0));
                             }
-                        })
-                .withEventHandler(FeatAcquiredEvent.class,
-                        ((featAcquiredEvent, character, characterStats) -> {
-                            if (featAcquiredEvent.getFeatAcquired().getRegistryName()
-                                    .compareTo(NAME) == 0) {
-                                characterStats.getSkills().putSkill(NAME);
-                            }
-                        })).finish();
+                        }).finish();
 }
