@@ -6,10 +6,7 @@ import com.teamacronymcoders.eposmajorum.api.feat.IFeat;
 import com.teamacronymcoders.eposmajorum.api.path.IPath;
 import com.teamacronymcoders.eposmajorum.api.pathfeature.IPathFeatureProvider;
 import com.teamacronymcoders.eposmajorum.api.registry.RegistryEvent;
-import com.teamacronymcoders.eposmajorum.content.EnderResistance;
-import com.teamacronymcoders.eposmajorum.content.LuckyLure;
-import com.teamacronymcoders.eposmajorum.content.SpiritOfBattle;
-import com.teamacronymcoders.eposmajorum.content.UnarmedStrike;
+import com.teamacronymcoders.eposmajorum.content.*;
 import com.teamacronymcoders.eposmajorum.pathfeature.feat.FeatFeatureProvider;
 import com.teamacronymcoders.eposmajorum.pathfeature.skillxp.SkillXPFeatureProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,7 +20,8 @@ public class RegistrationEventHandler {
                 UnarmedStrike.FEAT,
                 SpiritOfBattle.FEAT,
                 LuckyLure.FEAT,
-                EnderResistance.FEAT
+                EnderResistance.FEAT,
+                ObsidianSmasher.FEAT
         ));
     }
 
