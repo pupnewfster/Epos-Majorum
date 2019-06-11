@@ -2,12 +2,10 @@ package com.teamacronymcoders.eposmajorum.content;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.Feat;
-import com.teamacronymcoders.eposmajorum.api.feat.FeatAcquiredEvent;
 import com.teamacronymcoders.eposmajorum.api.feat.FeatBuilder;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class LuckyLure {

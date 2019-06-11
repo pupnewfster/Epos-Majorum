@@ -3,7 +3,6 @@ package com.teamacronymcoders.eposmajorum.eventhandler;
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.IFeat;
-import com.teamacronymcoders.eposmajorum.api.path.IPath;
 import com.teamacronymcoders.eposmajorum.api.pathfeature.IPathFeatureProvider;
 import com.teamacronymcoders.eposmajorum.api.registry.RegistryEvent;
 import com.teamacronymcoders.eposmajorum.content.*;
@@ -21,7 +20,8 @@ public class RegistrationEventHandler {
                 SpiritOfBattle.FEAT,
                 LuckyLure.FEAT,
                 EnderResistance.FEAT,
-                ObsidianSmasher.FEAT
+                ObsidianSmasher.FEAT,
+                GluttonousHunger.FEAT
         ));
     }
 
