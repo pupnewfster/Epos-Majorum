@@ -47,6 +47,7 @@ public final class LockRegistry {
         }
     }
 
+    @Nonnull
     public List<IRequirement> getRequirementsByKey(@Nonnull ILockKey key) {
         if (key instanceof IFuzzyLockKey) {
             return getFuzzyRequirements((IFuzzyLockKey) key);
@@ -54,6 +55,7 @@ public final class LockRegistry {
         return locks.getOrDefault(key, EMPTY_REQUIREMENTS);
     }
 
+    @Nonnull
     public List<IRequirement> getFuzzyRequirements(@Nonnull IFuzzyLockKey key) {
         List<IRequirement> requirements = new ArrayList<>();
         if (key.isNotFuzzy()) {
@@ -84,6 +86,7 @@ public final class LockRegistry {
         }
     }
 
+    @Nonnull
     public List<IRequirement> getLocks(@Nonnull Collection<Object> objects) {
         //TODO: Helper method for combining the locks of multiple same type objects (Maybe even allow of different type objects)
         // If it doesn't support different type objects should there be some optimization so it doesn't recheck all the types
@@ -94,6 +97,7 @@ public final class LockRegistry {
         return requirements;
     }
 
+    @Nonnull
     public List<IRequirement> getLocks(@Nonnull Object object) {
         List<IRequirement> requirements = new ArrayList<>();
         for (ILockKeyCreator<? extends ILockKey> keyCreator : keyCreators) {
