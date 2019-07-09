@@ -1,6 +1,9 @@
 package com.teamacronymcoders.eposmajorum.locks.keys.harvest;
 
+import com.teamacronymcoders.eposmajorum.api.locks.GenericLockKey;
 import com.teamacronymcoders.eposmajorum.api.locks.IFuzzyLockKey;
+import com.teamacronymcoders.eposmajorum.api.locks.ILockKey;
+import com.teamacronymcoders.eposmajorum.locks.FuzzyLockKeyTypes;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,6 +39,12 @@ public class BlockHarvestLockKey extends HarvestLockKey {
     @Override
     public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
         return o == this || o instanceof BlockHarvestLockKey && harvestLevel >= ((BlockHarvestLockKey) o).harvestLevel;
+    }
+
+    @Override
+    @Nonnull
+    public ILockKey getNotFuzzy() {
+        return new GenericLockKey(FuzzyLockKeyTypes.BLOCK_HARVEST);
     }
 
     @Override

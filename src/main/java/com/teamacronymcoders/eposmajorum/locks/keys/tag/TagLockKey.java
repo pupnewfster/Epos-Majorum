@@ -23,7 +23,7 @@ public class TagLockKey extends NBTLockKey {
     }
 
     @Override
-    @Nullable
+    @Nonnull
     public ILockKey getNotFuzzy() {
         return isNotFuzzy() ? this : new TagLockKey(tag);
     }

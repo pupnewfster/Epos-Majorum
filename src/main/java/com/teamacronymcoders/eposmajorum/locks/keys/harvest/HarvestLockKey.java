@@ -1,8 +1,6 @@
 package com.teamacronymcoders.eposmajorum.locks.keys.harvest;
 
 import com.teamacronymcoders.eposmajorum.api.locks.IFuzzyLockKey;
-import com.teamacronymcoders.eposmajorum.api.locks.ILockKey;
-import javax.annotation.Nullable;
 
 public abstract class HarvestLockKey implements IFuzzyLockKey {
 
@@ -19,11 +17,5 @@ public abstract class HarvestLockKey implements IFuzzyLockKey {
     @Override
     public boolean isNotFuzzy() {
         return false;
-    }
-
-    @Override
-    @Nullable
-    public ILockKey getNotFuzzy() {
-        return null;
     }
 }

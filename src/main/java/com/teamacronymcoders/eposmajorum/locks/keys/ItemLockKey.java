@@ -31,7 +31,7 @@ public class ItemLockKey extends NBTLockKey {
     }
 
     @Override
-    @Nullable
+    @Nonnull
     public ILockKey getNotFuzzy() {
         return isNotFuzzy() ? this : new ItemLockKey(item);
     }

@@ -1,7 +1,6 @@
 package com.teamacronymcoders.eposmajorum.api.locks;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public interface IFuzzyLockKey extends ILockKey {
 
@@ -20,8 +19,8 @@ public interface IFuzzyLockKey extends ILockKey {
     boolean isNotFuzzy();
 
     /**
-     * @return null if there is no non fuzzy implementation
+     * @return A non fuzzy "generic" variant of the key. If there is no generic type return a GenericLockKey instead. Allows for getting partial locks
      */
-    @Nullable
+    @Nonnull
     ILockKey getNotFuzzy();
 }

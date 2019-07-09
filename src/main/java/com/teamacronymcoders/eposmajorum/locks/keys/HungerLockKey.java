@@ -1,7 +1,9 @@
 package com.teamacronymcoders.eposmajorum.locks.keys;
 
+import com.teamacronymcoders.eposmajorum.api.locks.GenericLockKey;
 import com.teamacronymcoders.eposmajorum.api.locks.IFuzzyLockKey;
 import com.teamacronymcoders.eposmajorum.api.locks.ILockKey;
+import com.teamacronymcoders.eposmajorum.locks.FuzzyLockKeyTypes;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -58,9 +60,9 @@ public class HungerLockKey implements IFuzzyLockKey {
     }
 
     @Override
-    @Nullable
+    @Nonnull
     public ILockKey getNotFuzzy() {
-        return null;
+        return new GenericLockKey(FuzzyLockKeyTypes.HUNGER);
     }
 
     @Override

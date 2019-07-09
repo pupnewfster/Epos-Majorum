@@ -9,7 +9,7 @@ import com.teamacronymcoders.eposmajorum.locks.keys.ArmorLockKey;
 import com.teamacronymcoders.eposmajorum.locks.keys.ArmorToughnessLockKey;
 import com.teamacronymcoders.eposmajorum.locks.keys.AttackDamageLockKey;
 import com.teamacronymcoders.eposmajorum.locks.keys.DimensionTypeLockKey;
-import com.teamacronymcoders.eposmajorum.locks.keys.GenericLockKey;
+import com.teamacronymcoders.eposmajorum.api.locks.GenericLockKey;
 import com.teamacronymcoders.eposmajorum.locks.keys.GenericNBTLockKey;
 import com.teamacronymcoders.eposmajorum.locks.keys.HungerLockKey;
 import com.teamacronymcoders.eposmajorum.locks.keys.ItemLockKey;
@@ -93,11 +93,8 @@ public class LockRegistry {
     }
 
     public void addLockByKey(@Nonnull ILockKey key, @Nonnull List<IRequirement> requirements) {
-        if (key instanceof GenericLockKey) { //Do not add an empty lock key to the actual map
-            //TODO: Remove after reworking GenericLockKey
-            return;
-        }
-        if (requirements.isEmpty()) {
+        if (key instanceof GenericLockKey || requirements.isEmpty()) {
+            //Don't allow having locks on the generic key that is just for when there isn't enough information about a fuzzy lock key
             return;
         }
         locks.put(key, requirements);
@@ -105,12 +102,8 @@ public class LockRegistry {
         if (key instanceof IFuzzyLockKey) {
             IFuzzyLockKey fuzzy = (IFuzzyLockKey) key;
             if (!fuzzy.isNotFuzzy()) {
-                ILockKey without = fuzzy.getNotFuzzy();
-                if (without == null) {//Use a key that is more specialized for purposes of retrieving efficiently
-                    without = new GenericLockKey(key.getClass());
-                }
                 //Store the fuzzy instance in a list for the specific item
-                fuzzyLockInfo.computeIfAbsent(without, k -> new HashSet<>()).add(fuzzy);
+                fuzzyLockInfo.computeIfAbsent(fuzzy.getNotFuzzy(), k -> new HashSet<>()).add(fuzzy);
             }
         }
     }
@@ -126,18 +119,10 @@ public class LockRegistry {
         List<IRequirement> requirements = new ArrayList<>();
         if (!key.isNotFuzzy()) {
             ILockKey baseLock = key.getNotFuzzy();
-            if (baseLock == null) {
-                //If there is no base lock then use a representation for getting partial locks in general
-                //TODO: Implement this without using GenericLockKey/modify it so that it doesn't keep track of it by class
-                // One potentially solution is to have an interface implemented by an Enum and pass the enum for registering a set
-                // of lockkeys then it can use that as the type
-                // Make GenericLockKey be of an object that implements that interface rather than of a class
-                baseLock = new GenericLockKey(key.getClass());
-            } else if (locks.containsKey(baseLock)) {
+            if (locks.containsKey(baseLock)) {
                 //Add the base lock's requirements
                 requirements.addAll(locks.get(baseLock));
             }
-
             Set<IFuzzyLockKey> fuzzyLookup = fuzzyLockInfo.get(baseLock);
             if (fuzzyLookup != null) {
                 for (IFuzzyLockKey fuzzyLock : fuzzyLookup) {

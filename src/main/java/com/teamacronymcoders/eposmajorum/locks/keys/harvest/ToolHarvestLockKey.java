@@ -1,6 +1,9 @@
 package com.teamacronymcoders.eposmajorum.locks.keys.harvest;
 
+import com.teamacronymcoders.eposmajorum.api.locks.GenericLockKey;
 import com.teamacronymcoders.eposmajorum.api.locks.IFuzzyLockKey;
+import com.teamacronymcoders.eposmajorum.api.locks.ILockKey;
+import com.teamacronymcoders.eposmajorum.locks.FuzzyLockKeyTypes;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -69,6 +72,12 @@ public class ToolHarvestLockKey extends HarvestLockKey {
             }
         }
         return false;
+    }
+
+    @Override
+    @Nonnull
+    public ILockKey getNotFuzzy() {
+        return new GenericLockKey(FuzzyLockKeyTypes.TOOL_HARVEST);
     }
 
     @Override
