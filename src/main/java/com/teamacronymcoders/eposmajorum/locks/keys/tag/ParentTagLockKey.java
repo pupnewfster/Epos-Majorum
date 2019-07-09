@@ -1,7 +1,11 @@
 package com.teamacronymcoders.eposmajorum.locks.keys.tag;
 
 import com.teamacronymcoders.eposmajorum.api.locks.IParentLockKey;
+import com.teamacronymcoders.eposmajorum.api.requirements.IRequirement;
+import com.teamacronymcoders.eposmajorum.locks.LockRegistry;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.minecraft.block.Block;
@@ -76,15 +80,14 @@ public class ParentTagLockKey implements IParentLockKey {
         return null;
     }
 
-    /*@Override
-    public List<RequirementHolder> getSubRequirements() {
-        List<RequirementHolder> holders = new ArrayList<>();
+    @Nonnull
+    @Override
+    public List<IRequirement> getSubRequirements() {
+        List<IRequirement> requirements = new ArrayList<>();
         for (ResourceLocation location : tags) {
-            RequirementHolder holder = LockRegistry.getLockByFuzzyKey(new TagLockKey(location, nbt));
-            if (!holder.isEmpty()) {
-                holders.add(holder);
-            }
+            List<IRequirement> subRequirements = LockRegistry.INSTANCE.getFuzzyRequirements(new TagLockKey(location, nbt));
+            requirements.addAll(subRequirements);
         }
-        return holders;
-    }*/
+        return requirements;
+    }
 }

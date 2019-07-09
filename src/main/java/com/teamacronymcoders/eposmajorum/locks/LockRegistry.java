@@ -1,11 +1,15 @@
 package com.teamacronymcoders.eposmajorum.locks;
 
+import com.teamacronymcoders.eposmajorum.api.locks.IFuzzyLockKey;
 import com.teamacronymcoders.eposmajorum.api.locks.ILockKey;
 import com.teamacronymcoders.eposmajorum.api.locks.ILockKeyCreator;
+import com.teamacronymcoders.eposmajorum.api.locks.IParentLockKey;
+import com.teamacronymcoders.eposmajorum.api.requirements.IRequirement;
 import com.teamacronymcoders.eposmajorum.locks.keys.ArmorLockKey;
 import com.teamacronymcoders.eposmajorum.locks.keys.ArmorToughnessLockKey;
 import com.teamacronymcoders.eposmajorum.locks.keys.AttackDamageLockKey;
 import com.teamacronymcoders.eposmajorum.locks.keys.DimensionTypeLockKey;
+import com.teamacronymcoders.eposmajorum.locks.keys.GenericLockKey;
 import com.teamacronymcoders.eposmajorum.locks.keys.GenericNBTLockKey;
 import com.teamacronymcoders.eposmajorum.locks.keys.HungerLockKey;
 import com.teamacronymcoders.eposmajorum.locks.keys.ItemLockKey;
@@ -18,15 +22,26 @@ import com.teamacronymcoders.eposmajorum.locks.keys.harvest.BlockHarvestLockKey;
 import com.teamacronymcoders.eposmajorum.locks.keys.harvest.ToolHarvestLockKey;
 import com.teamacronymcoders.eposmajorum.locks.keys.tag.ParentTagLockKey;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.annotation.Nonnull;
 import net.minecraft.item.ItemStack;
 
 //TODO: Put this in the proper place
 public class LockRegistry {
 
+    //TODO: Remove this, it is just temporary so that ParentTagLockKey can reference non static fields
+    public static final LockRegistry INSTANCE = new LockRegistry();
+
     //TODO: Properly support fuzzyness
-    private List<ILockKeyCreator<? extends ILockKey>> keyCreators = new ArrayList<>();
+    private final List<ILockKeyCreator<? extends ILockKey>> keyCreators = new ArrayList<>();
+    private final Map<ILockKey, List<IRequirement>> locks = new HashMap<>(); //This should stay private to ensure that it is added to correctly
+    private final Map<ILockKey, Set<IFuzzyLockKey>> fuzzyLockInfo = new HashMap<>();
+    private final List<IRequirement> EMPTY_REQUIREMENTS = Collections.emptyList();
 
     //TODO: Change name or how this happens
     public void registerDefaultKeyLookups() {
@@ -77,12 +92,86 @@ public class LockRegistry {
         // If it doesn't support different type objects should there be some optimization so it doesn't recheck all the types
     }
 
-    public <TYPE> void getLocks(@Nonnull TYPE type) {
-        for (ILockKeyCreator<? extends ILockKey> keyCreator : keyCreators) {
-            ILockKey lockKey = keyCreator.createFrom(type);
-            if (lockKey != null) {
-                //We successfully created a lock key from our given object
+    public void addLockByKey(@Nonnull ILockKey key, @Nonnull List<IRequirement> requirements) {
+        if (key instanceof GenericLockKey) { //Do not add an empty lock key to the actual map
+            //TODO: Remove after reworking GenericLockKey
+            return;
+        }
+        if (requirements.isEmpty()) {
+            return;
+        }
+        locks.put(key, requirements);
+
+        if (key instanceof IFuzzyLockKey) {
+            IFuzzyLockKey fuzzy = (IFuzzyLockKey) key;
+            if (!fuzzy.isNotFuzzy()) {
+                ILockKey without = fuzzy.getNotFuzzy();
+                if (without == null) {//Use a key that is more specialized for purposes of retrieving efficiently
+                    without = new GenericLockKey(key.getClass());
+                }
+                //Store the fuzzy instance in a list for the specific item
+                fuzzyLockInfo.computeIfAbsent(without, k -> new HashSet<>()).add(fuzzy);
             }
         }
+    }
+
+    public List<IRequirement> getRequirementsByKey(ILockKey key) {
+        if (key instanceof IFuzzyLockKey) {
+            return getFuzzyRequirements((IFuzzyLockKey) key);
+        }
+        return locks.getOrDefault(key, EMPTY_REQUIREMENTS);
+    }
+
+    public List<IRequirement> getFuzzyRequirements(IFuzzyLockKey key) {
+        List<IRequirement> requirements = new ArrayList<>();
+        if (!key.isNotFuzzy()) {
+            ILockKey baseLock = key.getNotFuzzy();
+            if (baseLock == null) {
+                //If there is no base lock then use a representation for getting partial locks in general
+                //TODO: Implement this without using GenericLockKey/modify it so that it doesn't keep track of it by class
+                // One potentially solution is to have an interface implemented by an Enum and pass the enum for registering a set
+                // of lockkeys then it can use that as the type
+                // Make GenericLockKey be of an object that implements that interface rather than of a class
+                baseLock = new GenericLockKey(key.getClass());
+            } else if (locks.containsKey(baseLock)) {
+                //Add the base lock's requirements
+                requirements.addAll(locks.get(baseLock));
+            }
+
+            Set<IFuzzyLockKey> fuzzyLookup = fuzzyLockInfo.get(baseLock);
+            if (fuzzyLookup != null) {
+                for (IFuzzyLockKey fuzzyLock : fuzzyLookup) {
+                    if (key.fuzzyEquals(fuzzyLock) && locks.containsKey(fuzzyLock)) { //Build up the best match
+                        //fuzzy is the given object and has all info and fuzzyLock is the partial information
+                        requirements.addAll(locks.get(fuzzyLock));
+                    }
+                }
+            }
+        } else if (locks.containsKey(key)) {
+            requirements.addAll(locks.get(key));
+        }
+        return requirements;
+    }
+
+    public <TYPE> List<IRequirement> getLocks(@Nonnull TYPE type) {
+        List<IRequirement> requirements = new ArrayList<>();
+        for (ILockKeyCreator<? extends ILockKey> keyCreator : keyCreators) {
+            ILockKey lockKey = keyCreator.createFrom(type);
+            if (lockKey == null) {
+                //We failed to create a lock key with our object, continue to next type of lock key
+                continue;
+            }
+            if (lockKey instanceof IFuzzyLockKey) {
+                requirements.addAll(getFuzzyRequirements((IFuzzyLockKey) lockKey));
+            } else if (locks.containsKey(lockKey)) {
+                requirements.addAll(locks.get(lockKey));
+            }
+            if (lockKey instanceof IParentLockKey) {
+                //Add all the sub requirements the lock key may have
+                // (if there is one that matches the key itself it will have been caught above)
+                requirements.addAll(((IParentLockKey) lockKey).getSubRequirements());
+            }
+        }
+        return requirements;
     }
 }
