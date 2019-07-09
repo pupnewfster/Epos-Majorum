@@ -58,7 +58,7 @@ public class ModLockKey extends NBTLockKey {
     }
 
     @Override
-    @Nullable
+    @Nonnull
     public ILockKey getNotFuzzy() {
         return isNotFuzzy() ? this : new ModLockKey(modName);
     }
