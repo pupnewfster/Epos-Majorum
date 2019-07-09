@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.api.locks;
+package com.teamacronymcoders.eposmajorum.api.locks.keys;
 
 import javax.annotation.Nonnull;
 
