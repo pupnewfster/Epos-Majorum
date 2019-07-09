@@ -1,5 +1,6 @@
-package com.teamacronymcoders.eposmajorum.api.locks;
+package com.teamacronymcoders.eposmajorum.api.locks.keys;
 
+import com.teamacronymcoders.eposmajorum.api.locks.IGenericFuzzyLockType;
 import javax.annotation.Nonnull;
 
 public final class GenericLockKey implements ILockKey {

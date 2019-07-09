@@ -1,8 +1,8 @@
 package com.teamacronymcoders.eposmajorum.locks.keys.tag;
 
-import com.teamacronymcoders.eposmajorum.api.locks.IParentLockKey;
+import com.teamacronymcoders.eposmajorum.api.EposAPI;
+import com.teamacronymcoders.eposmajorum.api.locks.keys.IParentLockKey;
 import com.teamacronymcoders.eposmajorum.api.requirements.IRequirement;
-import com.teamacronymcoders.eposmajorum.locks.LockRegistry;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -85,7 +85,7 @@ public class ParentTagLockKey implements IParentLockKey {
     public List<IRequirement> getSubRequirements() {
         List<IRequirement> requirements = new ArrayList<>();
         for (ResourceLocation location : tags) {
-            List<IRequirement> subRequirements = LockRegistry.INSTANCE.getFuzzyRequirements(new TagLockKey(location, nbt));
+            List<IRequirement> subRequirements = EposAPI.LOCK_REGISTRY.getFuzzyRequirements(new TagLockKey(location, nbt));
             requirements.addAll(subRequirements);
         }
         return requirements;

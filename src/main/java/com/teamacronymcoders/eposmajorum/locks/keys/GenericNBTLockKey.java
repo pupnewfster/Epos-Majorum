@@ -1,8 +1,8 @@
 package com.teamacronymcoders.eposmajorum.locks.keys;
 
-import com.teamacronymcoders.eposmajorum.api.locks.GenericLockKey;
-import com.teamacronymcoders.eposmajorum.api.locks.ILockKey;
-import com.teamacronymcoders.eposmajorum.api.locks.NBTLockKey;
+import com.teamacronymcoders.eposmajorum.api.locks.keys.GenericLockKey;
+import com.teamacronymcoders.eposmajorum.api.locks.keys.ILockKey;
+import com.teamacronymcoders.eposmajorum.api.locks.keys.NBTLockKey;
 import com.teamacronymcoders.eposmajorum.locks.FuzzyLockKeyTypes;
 import java.util.Objects;
 import javax.annotation.Nonnull;

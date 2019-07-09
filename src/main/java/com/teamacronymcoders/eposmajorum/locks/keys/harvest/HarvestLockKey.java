@@ -1,6 +1,6 @@
 package com.teamacronymcoders.eposmajorum.locks.keys.harvest;
 
-import com.teamacronymcoders.eposmajorum.api.locks.IFuzzyLockKey;
+import com.teamacronymcoders.eposmajorum.api.locks.keys.IFuzzyLockKey;
 
 public abstract class HarvestLockKey implements IFuzzyLockKey {
 

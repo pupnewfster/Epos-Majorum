@@ -1,6 +1,6 @@
 package com.teamacronymcoders.eposmajorum.locks.keys;
 
-import com.teamacronymcoders.eposmajorum.api.locks.ILockKey;
+import com.teamacronymcoders.eposmajorum.api.locks.keys.ILockKey;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

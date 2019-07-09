@@ -1,5 +1,6 @@
-package com.teamacronymcoders.eposmajorum.api.locks;
+package com.teamacronymcoders.eposmajorum.api.locks.keys;
 
+import com.teamacronymcoders.eposmajorum.api.locks.LockRegistry;
 import com.teamacronymcoders.eposmajorum.api.requirements.IRequirement;
 import java.util.List;
 import javax.annotation.Nonnull;

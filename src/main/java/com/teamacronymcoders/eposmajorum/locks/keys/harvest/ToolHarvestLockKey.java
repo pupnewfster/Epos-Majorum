@@ -1,8 +1,8 @@
 package com.teamacronymcoders.eposmajorum.locks.keys.harvest;
 
-import com.teamacronymcoders.eposmajorum.api.locks.GenericLockKey;
-import com.teamacronymcoders.eposmajorum.api.locks.IFuzzyLockKey;
-import com.teamacronymcoders.eposmajorum.api.locks.ILockKey;
+import com.teamacronymcoders.eposmajorum.api.locks.keys.GenericLockKey;
+import com.teamacronymcoders.eposmajorum.api.locks.keys.IFuzzyLockKey;
+import com.teamacronymcoders.eposmajorum.api.locks.keys.ILockKey;
 import com.teamacronymcoders.eposmajorum.locks.FuzzyLockKeyTypes;
 import java.util.HashMap;
 import java.util.Map;
