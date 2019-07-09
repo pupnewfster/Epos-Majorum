@@ -19,8 +19,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-//This lock should never be created directly, but only be used by the automated checking for items so that we can call the getSubRequirements on it
-//The methods for creating it directly are for in case we ever change our mind about this. (Unlikely)
 //TODO: Javadoc, this is basically a wrapper for TagLockKey to be able to get the requirements of all the different tags on an item/block/etc
 public class ParentTagLockKey implements IParentLockKey {
 
