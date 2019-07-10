@@ -17,6 +17,8 @@ import net.minecraft.item.ItemStack;
 
 public class AttackDamageLockKey implements IFuzzyLockKey {
 
+    private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.ATTACK_DAMAGE);
+
     private final double attackDamage;
 
     public AttackDamageLockKey(double attackDamage) {
@@ -60,7 +62,7 @@ public class AttackDamageLockKey implements IFuzzyLockKey {
     @Override
     @Nonnull
     public ILockKey getNotFuzzy() {
-        return new GenericLockKey(FuzzyLockKeyTypes.ATTACK_DAMAGE);
+        return NOT_FUZZY;
     }
 
     @Override

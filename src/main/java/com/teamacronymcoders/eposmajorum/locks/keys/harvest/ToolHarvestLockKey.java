@@ -17,6 +17,8 @@ import net.minecraftforge.common.ToolType;
 // Or should that be part of the logic handler abilities that merges this with another for handling specific tool types
 public class ToolHarvestLockKey extends HarvestLockKey {
 
+    private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.TOOL_HARVEST);
+
     @Nonnull
     private final Map<ToolType, Integer> typeLevels;
     @Nullable
@@ -77,7 +79,7 @@ public class ToolHarvestLockKey extends HarvestLockKey {
     @Override
     @Nonnull
     public ILockKey getNotFuzzy() {
-        return new GenericLockKey(FuzzyLockKeyTypes.TOOL_HARVEST);
+        return NOT_FUZZY;
     }
 
     @Override

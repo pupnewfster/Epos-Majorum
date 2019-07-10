@@ -16,6 +16,8 @@ import net.minecraft.item.ItemStack;
 
 public class ArmorToughnessLockKey implements IFuzzyLockKey {
 
+    private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.ARMOR_TOUGHNESS);
+
     private final double toughness;
 
     public ArmorToughnessLockKey(double toughness) {
@@ -57,7 +59,7 @@ public class ArmorToughnessLockKey implements IFuzzyLockKey {
     @Override
     @Nonnull
     public ILockKey getNotFuzzy() {
-        return new GenericLockKey(FuzzyLockKeyTypes.ARMOR_TOUGHNESS);
+        return NOT_FUZZY;
     }
 
     @Override

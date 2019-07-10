@@ -12,6 +12,8 @@ import net.minecraft.nbt.CompoundNBT;
 
 public class GenericNBTLockKey extends NBTLockKey {
 
+    private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.GENERIC_NBT);
+
     public GenericNBTLockKey(@Nullable CompoundNBT nbt) {
         super(nbt);
     }
@@ -30,7 +32,7 @@ public class GenericNBTLockKey extends NBTLockKey {
     @Override
     @Nonnull
     public ILockKey getNotFuzzy() {
-        return new GenericLockKey(FuzzyLockKeyTypes.GENERIC_NBT);
+        return NOT_FUZZY;
     }
 
     @Override

@@ -13,6 +13,8 @@ import net.minecraft.item.ItemStack;
 
 public class HungerLockKey implements IFuzzyLockKey {
 
+    private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.HUNGER);
+
     private final int hunger;
 
     public HungerLockKey(int hunger) {
@@ -62,7 +64,7 @@ public class HungerLockKey implements IFuzzyLockKey {
     @Override
     @Nonnull
     public ILockKey getNotFuzzy() {
-        return new GenericLockKey(FuzzyLockKeyTypes.HUNGER);
+        return NOT_FUZZY;
     }
 
     @Override

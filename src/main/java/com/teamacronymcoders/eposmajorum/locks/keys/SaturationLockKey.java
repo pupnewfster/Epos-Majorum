@@ -13,6 +13,8 @@ import net.minecraft.item.ItemStack;
 
 public class SaturationLockKey implements IFuzzyLockKey {
 
+    private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.SATURATION);
+
     private final float saturation;
 
     public SaturationLockKey(float saturation) {
@@ -65,7 +67,7 @@ public class SaturationLockKey implements IFuzzyLockKey {
     @Override
     @Nonnull
     public ILockKey getNotFuzzy() {
-        return new GenericLockKey(FuzzyLockKeyTypes.SATURATION);
+        return NOT_FUZZY;
     }
 
     @Override

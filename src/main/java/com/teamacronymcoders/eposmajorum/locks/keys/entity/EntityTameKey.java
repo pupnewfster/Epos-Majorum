@@ -19,6 +19,6 @@ public class EntityTameKey<TYPE extends Entity> extends EntityLockKey<TYPE> {
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof EntityTameKey;
+        return obj instanceof EntityTameKey && super.equals(obj);
     }
 }
