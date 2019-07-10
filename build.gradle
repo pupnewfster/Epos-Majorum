@@ -46,6 +46,10 @@ sourceSets {
     }
 }
 
+configurations {
+    apiCompile.extendsFrom(compile)
+}
+
 minecraft {
     mappings channel: "snapshot", version: "${mappings_version}"
 

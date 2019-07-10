@@ -60,6 +60,6 @@ public class EposMajorum {
     }
 
     private void serverStart(FMLServerAboutToStartEvent event) {
-        event.getServer().getResourceManager().func_219534_a(pathLoader);
+        event.getServer().getResourceManager().addReloadListener(pathLoader);
     }
 }
