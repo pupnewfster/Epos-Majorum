@@ -15,10 +15,9 @@ import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nonnull;
 
-//TODO: Put this in the proper place
 public final class LockRegistry {
 
-    public static final List<IRequirement> EMPTY_REQUIREMENTS = Collections.emptyList();
+    private static final List<IRequirement> EMPTY_REQUIREMENTS = Collections.emptyList();
 
     private final List<ILockKeyCreator<? extends ILockKey>> keyCreators = new ArrayList<>();
     private final Map<ILockKey, List<IRequirement>> locks = new HashMap<>();
@@ -77,7 +76,7 @@ public final class LockRegistry {
         return requirements;
     }
 
-    //Helper method to add a lcok's requirements to the requirement list if it has them
+    //Helper method to add a lock's requirements to the requirement list if it has them
     private void addRequirementsFromLock(@Nonnull List<IRequirement> requirements, @Nonnull ILockKey key) {
         List<IRequirement> reqs = locks.get(key);
         if (reqs != null) {

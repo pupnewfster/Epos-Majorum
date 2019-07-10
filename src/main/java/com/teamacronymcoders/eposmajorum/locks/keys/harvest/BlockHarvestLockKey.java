@@ -14,6 +14,8 @@ import net.minecraft.item.ItemStack;
 
 public class BlockHarvestLockKey extends HarvestLockKey {
 
+    private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.BLOCK_HARVEST);
+
     public BlockHarvestLockKey(int harvestLevel) {
         super(harvestLevel);
     }
@@ -44,7 +46,7 @@ public class BlockHarvestLockKey extends HarvestLockKey {
     @Override
     @Nonnull
     public ILockKey getNotFuzzy() {
-        return new GenericLockKey(FuzzyLockKeyTypes.BLOCK_HARVEST);
+        return NOT_FUZZY;
     }
 
     @Override
