@@ -1,7 +1,6 @@
 package com.teamacronymcoders.eposmajorum.locks.keys;
 
 import com.teamacronymcoders.eposmajorum.api.locks.keys.ILockKey;
-import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.minecraft.world.World;
@@ -36,6 +35,6 @@ public class DimensionTypeLockKey implements ILockKey {
 
     @Override
     public int hashCode() {
-        return Objects.hash(dimension);
+        return dimension.hashCode();
     }
 }

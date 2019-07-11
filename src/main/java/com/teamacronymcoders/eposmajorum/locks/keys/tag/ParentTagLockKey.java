@@ -83,8 +83,7 @@ public class ParentTagLockKey implements IParentLockKey {
     public List<IRequirement> getSubRequirements() {
         List<IRequirement> requirements = new ArrayList<>();
         for (ResourceLocation location : tags) {
-            List<IRequirement> subRequirements = EposAPI.LOCK_REGISTRY.getFuzzyRequirements(new TagLockKey(location, nbt));
-            requirements.addAll(subRequirements);
+            requirements.addAll(EposAPI.LOCK_REGISTRY.getFuzzyRequirements(new TagLockKey(location, nbt)));
         }
         return requirements;
     }
