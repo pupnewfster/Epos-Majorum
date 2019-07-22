@@ -9,6 +9,7 @@ import com.teamacronymcoders.eposmajorum.api.requirements.IRequirement;
 import com.teamacronymcoders.eposmajorum.api.requirements.SimpleRequirement;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -25,6 +26,14 @@ class LockAPITest {
         EposAPI.LOCK_REGISTRY.registerLockType(object -> object instanceof String ? new StringLockKey((String) object) : null);
     }
 
+    /**
+     * Ensure that the lock registry has no lock keys in it so that we don't leak keys into the next test.
+     */
+    @AfterEach
+    static void resetLocks() {
+        EposAPI.LOCK_REGISTRY.clearLocks();
+    }
+
     @Test
     @DisplayName("Test adding, and then retrieving by a simple lock key")
     void simpleAddRetrieve() {
@@ -39,5 +48,23 @@ class LockAPITest {
         IRequirement requirement = fromKey.get(0);
         Assertions.assertTrue(requirement instanceof SimpleRequirement);
         Assertions.assertEquals(name, ((SimpleRequirement) requirement).getName());
+    }
+
+    @Test
+    @DisplayName("Test retrieval via ParentLockKey")
+    void testParentLock() {
+
+    }
+
+    @Test
+    @DisplayName("Test retrieval via FuzzyLockKey")
+    void testFuzzyLock() {
+
+    }
+
+    @Test
+    @DisplayName("Test retrieval via String across multiple lock types.")
+    void testStringRetrieval() {
+
     }
 }
