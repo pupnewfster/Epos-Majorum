@@ -12,9 +12,9 @@ buildscript {
     }
 }
 
+apply plugin: "net.minecraftforge.gradle"
 apply plugin: "maven"
 apply plugin: "java"
-apply plugin: "net.minecraftforge.gradle"
 apply plugin: "idea"
 
 version = "${minecraft_version}-" + getVersion()
@@ -60,23 +60,14 @@ minecraft {
     runs {
         client {
             workingDirectory project.file("run")
-
-            property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
-            property "forge.logging.console.level", "debug"
-
-            source sourceSets.api
             source sourceSets.main
+            source sourceSets.api
         }
 
         server {
             workingDirectory project.file("run")
-
-            property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
-
-            property "forge.logging.console.level", "debug"
-
-            source sourceSets.api
             source sourceSets.main
+            source sourceSets.api
         }
     }
 }
@@ -168,4 +159,8 @@ static String getBuildNumber() {
         buildNumber = System.getenv("bamboo_buildNumber") != null ? System.getenv("bamboo_buildNumber") : ""
     }
     return buildNumber
+}
+
+configurations {
+    apiCompile.extendsFrom(compile)
 }
